@@ -1,0 +1,15 @@
+S:\Диплом_V2\Main\Main\bin\Debug\Main.exe.config
+S:\Диплом_V2\Main\Main\bin\Debug\Main.exe
+S:\Диплом_V2\Main\Main\bin\Debug\Main.pdb
+S:\Диплом_V2\Main\Main\obj\Debug\Main.Form1.resources
+S:\Диплом_V2\Main\Main\obj\Debug\Main.Properties.Resources.resources
+S:\Диплом_V2\Main\Main\obj\Debug\Main.csproj.GenerateResource.Cache
+S:\Диплом_V2\Main\Main\obj\Debug\Main.exe
+S:\Диплом_V2\Main\Main\obj\Debug\Main.pdb
+S:\Диплом_V2\Main\Main\obj\Debug\Main.csproj.ResolveComReference.cache
+S:\Диплом_V2\Main\Main\obj\Debug\Main.Form_About.resources
+S:\Диплом_V2\Main\Main\obj\Debug\Main.Form_Pair.resources
+S:\Диплом_V2\Main\Main\obj\Debug\Main.csprojResolveAssemblyReference.cache
+S:\Диплом_V2\Main\Main\obj\Debug\Main.MySqlSettings.resources
+S:\Диплом_V2\Main\Main\bin\Debug\MySql.Data.dll
+S:\Диплом_V2\Main\Main\obj\Debug\Main.Form_Subjects.resources

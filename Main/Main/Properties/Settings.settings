@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Main.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SQL_BName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Имя базы данных</Value>
+    </Setting>
+    <Setting Name="SQL_UserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Имя пользователя</Value>
+    </Setting>
+    <Setting Name="SQL_PassWord" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Пароль пользователя</Value>
+    </Setting>
+    <Setting Name="SQL_IP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ip Сервера базы данных</Value>
+    </Setting>
+    <Setting Name="SQL_Auto" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
