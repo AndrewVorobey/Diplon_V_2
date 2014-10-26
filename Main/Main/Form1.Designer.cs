@@ -1,6 +1,6 @@
 ﻿namespace Main
 {
-    partial class Form1
+    partial class Form_Main
     {
         /// <summary>
         /// Требуется переменная конструктора.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menu = new System.Windows.Forms.MenuStrip();
             this.файлыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.распознатьКарточкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,6 +38,7 @@
             this.считатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.записатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.обновитьРасписаниеВсехПреподавателейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileNameCombo = new System.Windows.Forms.ToolStripComboBox();
             this.TeacherNameCombo = new System.Windows.Forms.ToolStripComboBox();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +47,9 @@
             this.расчетНагрузкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.расчетНагрузкиToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.считатьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.FirstKurs = new System.Windows.Forms.ToolStripTextBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Mon = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tue = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,8 +63,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.progressBarText = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog_Reports = new System.Windows.Forms.SaveFileDialog();
+            this.ShowHide = new System.Windows.Forms.Button();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.StatusGroup.SuspendLayout();
@@ -75,7 +79,9 @@
             this.FileNameCombo,
             this.TeacherNameCombo,
             this.настройкиToolStripMenuItem,
-            this.справкаToolStripMenuItem});
+            this.справкаToolStripMenuItem,
+            this.расчетНагрузкиToolStripMenuItem1,
+            this.FirstKurs});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
             this.menu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -99,7 +105,7 @@
             this.считатьИзКарточекToolStripMenuItem,
             this.создатьСеместровоеРасписаниеПреподавателейToolStripMenuItem});
             this.распознатьКарточкиToolStripMenuItem.Name = "распознатьКарточкиToolStripMenuItem";
-            this.распознатьКарточкиToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.распознатьКарточкиToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.распознатьКарточкиToolStripMenuItem.Text = "Word";
             // 
             // считатьИзКарточекToolStripMenuItem
@@ -123,7 +129,7 @@
             this.записатьToolStripMenuItem,
             this.обновитьРасписаниеВсехПреподавателейToolStripMenuItem});
             this.mySQLToolStripMenuItem1.Name = "mySQLToolStripMenuItem1";
-            this.mySQLToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.mySQLToolStripMenuItem1.Size = new System.Drawing.Size(112, 22);
             this.mySQLToolStripMenuItem1.Text = "MySQL";
             // 
             // считатьToolStripMenuItem
@@ -146,6 +152,13 @@
             this.обновитьРасписаниеВсехПреподавателейToolStripMenuItem.Size = new System.Drawing.Size(314, 22);
             this.обновитьРасписаниеВсехПреподавателейToolStripMenuItem.Text = "Обновить расписание всех преподавателей";
             this.обновитьРасписаниеВсехПреподавателейToolStripMenuItem.Click += new System.EventHandler(this.обновитьРасписаниеВсехПреподавателейToolStripMenuItem_Click);
+            // 
+            // отчетToolStripMenuItem
+            // 
+            this.отчетToolStripMenuItem.Name = "отчетToolStripMenuItem";
+            this.отчетToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.отчетToolStripMenuItem.Text = "Отчет";
+            this.отчетToolStripMenuItem.Click += new System.EventHandler(this.отчетToolStripMenuItem_Click);
             // 
             // FileNameCombo
             // 
@@ -200,23 +213,45 @@
             // оПрограммеToolStripMenuItem
             // 
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
+            // 
+            // расчетНагрузкиToolStripMenuItem1
+            // 
+            this.расчетНагрузкиToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.считатьToolStripMenuItem1});
+            this.расчетНагрузкиToolStripMenuItem1.Name = "расчетНагрузкиToolStripMenuItem1";
+            this.расчетНагрузкиToolStripMenuItem1.Size = new System.Drawing.Size(108, 23);
+            this.расчетНагрузкиToolStripMenuItem1.Text = "Расчет нагрузки";
+            // 
+            // считатьToolStripMenuItem1
+            // 
+            this.считатьToolStripMenuItem1.Name = "считатьToolStripMenuItem1";
+            this.считатьToolStripMenuItem1.Size = new System.Drawing.Size(121, 22);
+            this.считатьToolStripMenuItem1.Text = "Считать ";
+            this.считатьToolStripMenuItem1.Click += new System.EventHandler(this.считатьToolStripMenuItem1_Click);
+            // 
+            // FirstKurs
+            // 
+            this.FirstKurs.Name = "FirstKurs";
+            this.FirstKurs.Size = new System.Drawing.Size(100, 23);
+            this.FirstKurs.Text = "14";
+            this.FirstKurs.Click += new System.EventHandler(this.FirstKurs_Click);
             // 
             // dataGridView
             // 
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.HotTrack;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Mon,
@@ -317,26 +352,32 @@
             this.progressBar1.Size = new System.Drawing.Size(885, 23);
             this.progressBar1.TabIndex = 0;
             // 
-            // отчетToolStripMenuItem
+            // ShowHide
             // 
-            this.отчетToolStripMenuItem.Name = "отчетToolStripMenuItem";
-            this.отчетToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.отчетToolStripMenuItem.Text = "Отчет";
-            this.отчетToolStripMenuItem.Click += new System.EventHandler(this.отчетToolStripMenuItem_Click);
+            this.ShowHide.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ShowHide.Location = new System.Drawing.Point(0, 287);
+            this.ShowHide.Name = "ShowHide";
+            this.ShowHide.Size = new System.Drawing.Size(981, 19);
+            this.ShowHide.TabIndex = 7;
+            this.ShowHide.Text = "▲";
+            this.ShowHide.UseVisualStyleBackColor = true;
+            this.ShowHide.Click += new System.EventHandler(this.ShowHide_Click);
             // 
-            // Form1
+            // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(981, 322);
+            this.ClientSize = new System.Drawing.Size(981, 544);
+            this.Controls.Add(this.ShowHide);
             this.Controls.Add(this.StatusGroup);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.menu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menu;
             this.MinimumSize = new System.Drawing.Size(997, 361);
-            this.Name = "Form1";
+            this.Name = "Form_Main";
             this.Text = "Обработка расписания";
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
@@ -382,6 +423,10 @@
         private System.Windows.Forms.ToolStripMenuItem обновитьРасписаниеВсехПреподавателейToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отчетToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog_Reports;
+        private System.Windows.Forms.ToolStripMenuItem расчетНагрузкиToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem считатьToolStripMenuItem1;
+        public System.Windows.Forms.ToolStripTextBox FirstKurs;
+        private System.Windows.Forms.Button ShowHide;
     }
 }
 

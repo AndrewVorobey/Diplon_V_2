@@ -40,20 +40,25 @@ namespace Main
             form.TRoom2.Text = date.date[stage].room;
         }
 
+        static bool changing = false;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (textBox1.Enabled)
-            {//TODO запретить изменяь строку. Только парсить или сохранять её местоположение. 
-                String S = textBox1.Text;
-                int pos = textBox1.SelectionStart;
-                date.parsing(textBox1.Text);
-                setPair(date);
-                date.isErrors = false;
-                textBox1.SelectionStart = pos;
-                textBox1.Text = S;
+            if (!changing)
+            {
+                changing = true;
+                if (textBox1.Enabled)
+                {//TODO запретить изменяь строку. Только парсить или сохранять её местоположение. 
+                    String S = textBox1.Text;
+                    int pos = textBox1.SelectionStart;
+                    date.parsing(textBox1.Text);
+                    setPair(date);
+                    date.isErrors = false;
+                    date.originSring = textBox1.Text;
+                    textBox1.Text = S;
+                    textBox1.SelectionStart = pos;
+                }
+                changing = false;
             }
-
-            date.originSring = textBox1.Text;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -110,9 +115,9 @@ namespace Main
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int i = Form1.form.dataGridView.SelectedCells[0].RowIndex;
-            int j = Form1.form.dataGridView.SelectedCells[0].ColumnIndex;
-            Data.FilesData[Form1.form.FileNameCombo.SelectedIndex].Teachers[Form1.form.TeacherNameCombo.SelectedIndex].pairs[j, i] = date;
+            int i = Form_Main.form.dataGridView.SelectedCells[0].RowIndex;
+            int j = Form_Main.form.dataGridView.SelectedCells[0].ColumnIndex;
+            Data.FilesData[Form_Main.form.FileNameCombo.SelectedIndex].Teachers[Form_Main.form.TeacherNameCombo.SelectedIndex].pairs[j, i] = date;
             this.Close();
         }
 

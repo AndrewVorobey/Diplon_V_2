@@ -15,6 +15,13 @@ namespace Main
         public string subject;
         public string group;
         public string room;
+        public int Burden()
+        {
+            if(group == "" || subject == "")
+                return 0;
+            int kurs = int.Parse(Form_Main.form.FirstKurs.Text) + 1 - int.Parse(group.Substring(group.Length - 2, 2));
+            return BurdenData.getHours(subject + "|" + group + "|" + kurs); 
+        }
 
         public UnderPair()
         {
@@ -26,7 +33,7 @@ namespace Main
 
         public UnderPair(UnderPair u)
         {
-            subject = new string(u.subject.ToCharArray());//new string();
+            subject = new string(u.subject.ToCharArray());
             group = new string(u.group.ToCharArray());
             room = new string(u.room.ToCharArray());
             isLecture = u.isLecture;

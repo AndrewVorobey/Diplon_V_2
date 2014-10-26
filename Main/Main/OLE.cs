@@ -15,7 +15,7 @@ namespace Main
         {
 
             TeachersList res = new TeachersList();
-            Form1.form.Invoke(Form1.form.progress_bar_del, 0, "Открытие документа", true);
+            Form_Main.form.Invoke(Form_Main.form.progress_bar_del, 0, "Открытие документа", true);
             #region //создание дока
 
             //Word.Application app = new Word.ApplicationClass();
@@ -54,7 +54,7 @@ namespace Main
                 for (int i = 1; i <= doc.Tables.Count; i++)
                 {
                     TeacherPirs buf = new TeacherPirs();
-                     Form1.form.Invoke(Form1.form.progress_bar_del, i * 5 / doc.Tables.Count, "Читаем таблицы",true);
+                    Form_Main.form.Invoke(Form_Main.form.progress_bar_del, i * 5 / doc.Tables.Count, "Читаем таблицы", true);
                     Word.Table t = doc.Tables[i];
                     for (int k = 2; k <= t.Columns.Count; k++)
                     {
@@ -79,7 +79,7 @@ namespace Main
                 string txt;
                 for (int i = 1; (i <= doc.Paragraphs.Count) && (StrI < res.Teachers.Count); i++)
                 {
-                    Form1.form.Invoke(Form1.form.progress_bar_del, (5 + i * 95 / doc.Paragraphs.Count), "считываем имена преподавателей", true);
+                    Form_Main.form.Invoke(Form_Main.form.progress_bar_del, (5 + i * 95 / doc.Paragraphs.Count), "считываем имена преподавателей", true);
                     txt = doc.Paragraphs[i].Range.Text;
                     txt = FindName(txt);
                     if (txt != "")
@@ -100,7 +100,7 @@ namespace Main
             Object originalFormat = Type.Missing;
             Object routeDocument = Type.Missing;
             app.Quit(ref saveChanges, ref originalFormat, ref routeDocument);
-            Form1.form.Invoke(Form1.form.progress_bar_del, 100, "Считывание файла успешно завршено", true);
+            Form_Main.form.Invoke(Form_Main.form.progress_bar_del, 100, "Считывание файла успешно завршено", true);
             return res;
 
         }
@@ -109,7 +109,7 @@ namespace Main
         {
             #region inicialization
 
-            Form1.form.Invoke(Form1.form.progress_bar_del, 0,"Инициализация структур",true);
+            Form_Main.form.Invoke(Form_Main.form.progress_bar_del, 0,"Инициализация структур",true);
             int namesLen = Data.FilesData[N].Teachers.Count;
             const int pairLen = 4;//Сколько пар в день отображать
             string[] daysNames = { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница" };
@@ -152,7 +152,7 @@ namespace Main
             formatTable(ref doc, ref table, ref TextFont, pairLen, dayWidth, namesWidth, namesLen, cellRange);
             setBorders(ref table, pairLen);
             setDateToTable(ref doc, ref TextFont, pairLen, dayWidth, namesWidth, namesLen, N);
-            Form1.form.Invoke(Form1.form.progress_bar_del, 100,"Файл создан. Записываем.", true);
+            Form_Main.form.Invoke(Form_Main.form.progress_bar_del, 100,"Файл создан. Записываем.", true);
 
             #region save
             Object fileName = name;//@"C:\Test\Форматированная_Таблица.doc";
@@ -186,7 +186,7 @@ namespace Main
             app.Quit(ref saveChanges, ref originalFormat, ref routeDocument);
             #endregion
 
-            Form1.form.Invoke(Form1.form.progress_bar_del, 100, "Операция успешно завершена.", true);
+            Form_Main.form.Invoke(Form_Main.form.progress_bar_del, 100, "Операция успешно завершена.", true);
         }
 
         private static void formatTable(ref Word.Document doc, ref Word.Table table, ref  Word.Font TextFont, int pairLen, int dayWidth, int namesWidth, int namesLen, Word.Range cellRange)
@@ -216,7 +216,7 @@ namespace Main
 
             for (int i = 0; i < 5 * pairLen; i++)
             {
-                Form1.form.Invoke(Form1.form.progress_bar_del, 10 + i * 10 / (5 * pairLen),"Прописываем время начала и окончания занятий",true);
+                Form_Main.form.Invoke(Form_Main.form.progress_bar_del, 10 + i * 10 / (5 * pairLen),"Прописываем время начала и окончания занятий",true);
                 table.Cell(2, i + 2).Width = dayWidth / pairLen;
                 cellRange = table.Cell(2, i + 2).Range;
                 cellRange.Font = TextFont;
@@ -229,7 +229,7 @@ namespace Main
             //Делаем разметку под пары. 
             for (int i = 3; i < namesLen + 3; i++)
             {
-                Form1.form.Invoke(Form1.form.progress_bar_del, 10 + i * 30 / namesLen + 3, "Создание ячеек для заполнения данными", true);
+                Form_Main.form.Invoke(Form_Main.form.progress_bar_del, 10 + i * 30 / namesLen + 3, "Создание ячеек для заполнения данными", true);
 
                 table.Cell(i, 1).Width = namesWidth;
                 table.Cell(i, 1 + 5 + 1).Width = namesWidth;
@@ -257,7 +257,7 @@ namespace Main
             for (int j = 2; j <= table.Rows.Count; j++)
             {
 
-                Form1.form.Invoke(Form1.form.progress_bar_del, 40 + j * 40 / table.Rows.Count,"делаем бордеры ячеек жирными", true);
+                Form_Main.form.Invoke(Form_Main.form.progress_bar_del, 40 + j * 40 / table.Rows.Count,"делаем бордеры ячеек жирными", true);
                 for (int i = 0; i < 5 * pairLen; i += pairLen)
                 {
                     table.Cell(j, i + 2).Borders[Word.WdBorderType.wdBorderLeft].LineStyle = Word.WdLineStyle.wdLineStyleSingle;
@@ -276,7 +276,7 @@ namespace Main
             //Заполнение созданной таблицы данными
             for (int j = 3; j < namesLen + 3; j++)
             {
-                Form1.form.Invoke(Form1.form.progress_bar_del, 80 + (j - 3) * 20 / namesLen, "заполняем ячейки таблицы данными",true);
+                Form_Main.form.Invoke(Form_Main.form.progress_bar_del, 80 + (j - 3) * 20 / namesLen, "заполняем ячейки таблицы данными",true);
                 TextFont.Size = 10;
                 cellRange = table.Cell(j, 1).Range;
                 cellRange.Font = TextFont;

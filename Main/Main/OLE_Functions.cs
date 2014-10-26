@@ -11,7 +11,7 @@ namespace Main
     {
         static int FindInt(string s, int i)
         {
-            int[] matches = Regex.Matches(s, "\\d+")
+            int[] matches = Regex.Matches(s, "\\d+") 
                 .Cast<Match>()
                 .Select(x => int.Parse(x.Value))
                 .ToArray();

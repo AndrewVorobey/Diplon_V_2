@@ -47,6 +47,7 @@ namespace Main
         public static Regex GRR;
         public static Regex GSRR;
         public static Regex GRGR;
+        public static Regex GS;
         
         static TipesPatterns()
         {
@@ -65,12 +66,9 @@ namespace Main
 
             string _GRGR = @"\s*([1,2])?\s*" + BasePatterns.r_lectionGroups + @"\s*" + BasePatterns.s_room + @"\s*([1,2])?\s*" + BasePatterns.r_lectionGroups + @"\s*" + BasePatterns.s_room;
             GRGR = new Regex(_GRGR);
-            /*
-                        string str = BasePatterns.r_lectionGroups + @"\s*" + BasePatterns.s_subject + @"\s*" + BasePatterns.s_room;
-                        GSR = new Regex(str);
 
-                        string str = BasePatterns.r_lectionGroups + @"\s*" + BasePatterns.s_subject + @"\s*" + BasePatterns.s_room;
-                        GSR = new Regex(str);*/
+            string _GS = BasePatterns.r_lectionGroups + @"\s*" + BasePatterns.s_subject;
+            GS = new Regex(_GS);
         }
 
     }
@@ -149,7 +147,7 @@ namespace Main
                 MatchCollection matches = TipesPatterns.GSRR.Matches(data, 0);
                 this.isSame = false;
                 int i=1;
-                this.date[0].group = matches[0].Groups[i].Value.Replace(" ",string.Empty);
+                this.date[0].group = matches[0].Groups[i].Value.Replace(" ", string.Empty);
                 this.date[1].group = matches[0].Groups[i++].Value.Replace(" ", string.Empty);
                 this.date[0].subject = matches[0].Groups[i].Value;
                 this.date[1].subject = matches[0].Groups[i++].Value;

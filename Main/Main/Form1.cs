@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Main
 {
-    public partial class Form1 : Form
+    public partial class Form_Main : Form
     {
-        public static Form1 form;
+        public static Form_Main form;
 
         public delegate void simple_delegate();
         public delegate void string_simple_delegate(string s);
@@ -24,9 +24,10 @@ namespace Main
         public int_Strin_Bool_delegate progress_bar_del;
         public simple_delegate showB1;
         public simple_delegate showB2;
+        public int minHeight = 360;
+        public int maxHeight;
 
-
-        public Form1()
+        public Form_Main()
         {
             InitializeComponent();
 
@@ -53,6 +54,8 @@ namespace Main
             showB2 = new simple_delegate(button2.Show);
             button2.Hide();
             button1.Hide();
+            maxHeight = this.Size.Height;
+            ShowHide_Click(null, null);
 
             MySqlSettings.form = new MySqlSettings();
         }
@@ -74,11 +77,11 @@ namespace Main
         private void endOfReading(TeachersList file)
         {
             Data.FilesData.Add(file);
-            Form1.form.Invoke(Form1.form.showB1);
+            Form_Main.form.Invoke(Form_Main.form.showB1);
         }
         private void endWritting()
         {
-            Form1.form.Invoke(Form1.form.showB2);
+            Form_Main.form.Invoke(Form_Main.form.showB2);
         }
 
         private void DataGridView1_CellMouseDown(object sender, DataGridViewCellEventArgs e)
@@ -122,7 +125,7 @@ namespace Main
             for (int k = 0; k < 5; k++)
                 for (int j = 0; j < 5; j++)
                 {
-                    dataGridView.Rows[j].Cells[k].Value = toTable.pairs[k, j].originSring;
+                    dataGridView.Rows[j].Cells[k].Value = "<" + toTable.pairs[k,j].date[0].Burden() + ">  " + toTable.pairs[k, j].originSring;
                     if (toTable.pairs[k, j].isErrors == true)
                         dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.Red;
                     else
@@ -172,8 +175,8 @@ namespace Main
             button1.Hide();
             Data.FilesData[FileNameCombo.Items.Count].objectName = Data.FilesData.Count.ToString() + " Файл";
             FileNameCombo.Items.Add(Data.FilesData[FileNameCombo.Items.Count].objectName);
-            setTeacherComboBox();
             FileNameCombo.SelectedIndex = FileNameCombo.Items.Count - 1;
+            setTeacherComboBox();
             TeacherNameCombo.SelectedIndex = 0;
             setTable();
             dataGridView.Enabled = true;
@@ -229,6 +232,40 @@ namespace Main
              {
                 Reports.createSimpleTxtReport(saveFileDialog_Reports.FileName);
              }
+        }
+
+        private void считатьToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                this.Enabled = false;
+                BurdenData.inicializationFromWord(openFileDialog1.FileName);
+                this.Enabled = true;
+                BurdenData.values.ToArray();
+                foreach(var i in BurdenData.values){
+                    string str = i.Key + ":" + i.Value.ToString();
+                 //   listView1.Items.Add(str);
+                }
+            }
+        }
+
+        private void FirstKurs_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ShowHide_Click(object sender, EventArgs e)
+        {
+            if (ShowHide.Text == "▲")
+            {
+                ShowHide.Text = "▼";
+                this.Height = minHeight;
+            }
+            else
+            {
+                ShowHide.Text = "▲";
+                this.Height = maxHeight;
+            }
         }
 
     }
