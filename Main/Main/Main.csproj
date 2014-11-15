@@ -91,6 +91,7 @@
     <Compile Include="Form_Subjects.Designer.cs">
       <DependentUpon>Form_Subjects.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="MySql.cs" />
     <Compile Include="MySqlSettings.cs">
       <SubType>Form</SubType>

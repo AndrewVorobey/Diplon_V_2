@@ -8,34 +8,78 @@ using System.Text.RegularExpressions;
 
 namespace Main
 {
+    public class pointSem
+    {
+        public pointSem()
+        {
+            sem_hours = new int();
+            lec_hours = new int();
+            hours_N = new float();
+           // isOnceGroup = new bool();
+        }
+        public int sem_hours;
+        public int lec_hours;
+        public float hours_N;
+        //bool isOnceGroup;
+        public String ToString()
+        {
+            pointSem p = this;
+            return p.lec_hours + "+" + p.sem_hours + "+" + p.hours_N + "*N";
+        }
+    }
     class BurdenData
     {
-        public  static Dictionary<String, int> values = new Dictionary<string,int>();
+        public static Dictionary<String, pointSem> Hours = new Dictionary<string, pointSem>();
         /*pattern format: subject|group|year*/
-        public static int getHours(String pattern)
+        public static string ToString(String pattern)
         {
             pattern = formatePattern(pattern);
             try
             {
-                return values[pattern];
+                return Hours[pattern].ToString();
             }
             catch
             {
-                return 0;
+                return "";
+            }
+        }
+
+        public static pointSem getHours(String pattern)
+        {
+            pattern = formatePattern(pattern);
+            try
+            {
+                return Hours[pattern];
+            }
+            catch
+            {
+                pointSem p = new pointSem();
+                Hours.Add(pattern, p);
+                return p;
             }
         }
 
         public static void clear()
         {
-            values.Clear();
+            Hours.Clear();
         }
 
-        public static void setHours(String pattern, int hours)
+        public static void setLectionHours(String pattern, int hours)
         {
-            int lastVal = getHours(pattern);
+            getHours(pattern).lec_hours += hours;//пробежать по всем группам
+        }
+
+        public static void setSeminarHours(String pattern, float hours, bool N = false)
+        {
             pattern = formatePattern(pattern);
-            values.Remove(pattern);
-            values.Add(pattern, hours + lastVal);
+            string[] strs0 = pattern.Split('|');
+            string[] strs1 = strs0[1].Split('-');
+            string[] strs2 = strs1[1].Split(',');
+            foreach (var i in strs2)
+                if(N)
+                    getHours(strs0[0] + "|" + strs1[0] + "-" + i + "|" + strs0[2]).hours_N += hours;
+                else
+                    getHours(strs0[0] + "|" + strs1[0] + "-" + i + "|" + strs0[2]).sem_hours += (int)hours;
         }
 
         private static String formatePattern(String pattern)
@@ -48,6 +92,9 @@ namespace Main
         {
             if (inStr == "")
                 return "";
+
+            if (inStr.Split('-').Length == 2)
+                return inStr;
             // TODO: check correct input format
             inStr = inStr.Trim().Replace(" ", string.Empty);
             int pos = 0;
@@ -61,7 +108,6 @@ namespace Main
             } while (inStr[++pos] != '-');
             pos++;//факултет запомнили
             outStr += "-";
-
             while (inStr[--backPos] != '-')
                 ;
 
@@ -70,7 +116,7 @@ namespace Main
             {
                 do
                 {
-                    if (inStr[pos] <= '9' && inStr[pos] >= '0') 
+                    if (inStr[pos] <= '9' && inStr[pos] >= '0')
                         first += inStr[pos];
                     pos++;
                 }
@@ -78,7 +124,7 @@ namespace Main
 
                 if (pos == backPos)
                 {
-                    outStr += first ;
+                    outStr += first;
                     break;
                 }
                 else if (inStr[pos] == ',')
@@ -110,14 +156,12 @@ namespace Main
             bool showStatus = false;
             Regex regexInt = new Regex(@"\d*");
             Regex regexKurs = new Regex(@"(\d)\s*курс");
-            Regex regexItem = new Regex(@"(лекции|текущие\s*консультации|практические\s*занятия)");
+            Regex regexLections = new Regex(@"(лекции|предэкзаменационные\s*консульт.|текущие\s*консультации)");
+            Regex regexSeminars = new Regex(@"(практические\s*занятия|лабораторные\s*работы)");
+            Regex regexSeminarsN = new Regex(@"(КР|РЗ|зачетов)");
             Regex regexGroupSubject = TipesPatterns.GS;
             Form_Main.form.Invoke(Form_Main.form.progress_bar_del, 0, "Открытие документа", showStatus);
             #region //создание дока
-
-            //Word.Application app = new Word.ApplicationClass();
-            //Word.Document doc = new Word.DocumentClass();
-
 
             Word.Application app = new Word.Application();
             Word.Document doc = new Word.Document();
@@ -150,14 +194,12 @@ namespace Main
             else
             {
                 int kurs = 0;
-                String CurrentGroup = ""; 
+                String CurrentGroup = "";
                 String CurrentSubject = "";
                 Word.Table t = doc.Tables[1];
                 for (int j = 1; j <= t.Rows.Count; j++)
                 {
-
-
-
+            
                     string str1 = t.Cell(j, 1).Range.Text;
                     string str2 = t.Cell(j, 2).Range.Text;
 
@@ -176,25 +218,22 @@ namespace Main
                     }
 
 
-                    if (regexItem.Match(str1).Value != "")
+                    if (regexLections.Match(str1).Value != "")
                     {
-                        setHours(CurrentSubject + "|" + CurrentGroup + "|" + kurs, Int16.Parse(regexInt.Match(str2).Value));
+                        setLectionHours(SubjectCollection.findEquals(CurrentSubject) + "|" + CurrentGroup + "|" + kurs, Int16.Parse(regexInt.Match(str2).Value));
                         continue;
                     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    if (regexSeminars.Match(str1).Value != "")
+                    {
+                        setSeminarHours(SubjectCollection.findEquals(CurrentSubject) + "|" + CurrentGroup + "|" + kurs, Int16.Parse(regexInt.Match(str2).Value));
+                        continue;
+                    }
+                    if (regexSeminarsN.Match(str1).Value != "")
+                    {
+                        setSeminarHours(SubjectCollection.findEquals(CurrentSubject) + "|" + CurrentGroup + "|" + kurs, Int16.Parse(regexInt.Match(str2).Value),true);
+                        continue;
+                    }
                     //Form1.form.Invoke(Form1.form.progress_bar_del, j / t.Rows.Count, "Читаем таблицу, курс: " + kurs, showStatus);
                 }
             }

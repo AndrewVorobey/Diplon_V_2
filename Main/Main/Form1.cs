@@ -30,7 +30,7 @@ namespace Main
         public Form_Main()
         {
             InitializeComponent();
-
+            SubjectCollection.loadFromFile();
             form = this;
             dataGridView.RowCount = 5;
             for (int i = 0; i < dataGridView.Rows.Count; i++)
@@ -125,7 +125,7 @@ namespace Main
             for (int k = 0; k < 5; k++)
                 for (int j = 0; j < 5; j++)
                 {
-                    dataGridView.Rows[j].Cells[k].Value = "<" + toTable.pairs[k,j].date[0].Burden() + ">  " + toTable.pairs[k, j].originSring;
+                    dataGridView.Rows[j].Cells[k].Value = "<" + toTable.pairs[k,j].date[0].Burden().ToString() + ">  " + toTable.pairs[k, j].originSring;
                     if (toTable.pairs[k, j].isErrors == true)
                         dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.Red;
                     else
@@ -241,8 +241,7 @@ namespace Main
                 this.Enabled = false;
                 BurdenData.inicializationFromWord(openFileDialog1.FileName);
                 this.Enabled = true;
-                BurdenData.values.ToArray();
-                foreach(var i in BurdenData.values){
+                foreach(var i in BurdenData.Hours){
                     string str = i.Key + ":" + i.Value.ToString();
                  //   listView1.Items.Add(str);
                 }

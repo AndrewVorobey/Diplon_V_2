@@ -71,7 +71,7 @@ namespace Main
 
                     res.Teachers.Add(buf);
                 }
-            }
+            }/*
             if (res.Teachers.Count > 0)
             {
                 //считывания имен
@@ -95,7 +95,7 @@ namespace Main
                         res.Teachers.RemoveAt(i); i--;
                     }
 
-            }
+            }*/
             Object saveChanges = Word.WdSaveOptions.wdSaveChanges;
             Object originalFormat = Type.Missing;
             Object routeDocument = Type.Missing;

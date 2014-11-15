@@ -12,20 +12,26 @@ namespace Main
 
     public class UnderPair
     {
-        public string subject;
+        private string _subject;
         public string group;
         public string room;
-        public int Burden()
+
+        public string subject
         {
-            if(group == "" || subject == "")
-                return 0;
+            get { return _subject; }
+            set { _subject = SubjectCollection.findEquals(value); }
+        }
+        public pointSem Burden()
+        {
+            if (group == "" || subject == "")
+                return new pointSem();
             int kurs = int.Parse(Form_Main.form.FirstKurs.Text) + 1 - int.Parse(group.Substring(group.Length - 2, 2));
-            return BurdenData.getHours(subject + "|" + group + "|" + kurs); 
+            return BurdenData.getHours(subject + "|" + group + "|" + kurs);
         }
 
         public UnderPair()
         {
-            subject = "";
+            _subject = "";
             group = "";
             room = "";
             isLecture = new bool();
@@ -33,7 +39,7 @@ namespace Main
 
         public UnderPair(UnderPair u)
         {
-            subject = new string(u.subject.ToCharArray());
+            _subject = new string(u._subject.ToCharArray());
             group = new string(u.group.ToCharArray());
             room = new string(u.room.ToCharArray());
             isLecture = u.isLecture;
@@ -68,7 +74,7 @@ namespace Main
             isErrors = false;
         }
 
-        public Pair( Pair p)
+        public Pair(Pair p)
         {
             originSring = new string(p.originSring.ToCharArray());
             date = new UnderPair[2];
@@ -137,7 +143,7 @@ namespace Main
 
             return str;
         }
-        
+
         public bool isEmpty()
         {
             return date[0].isEmpty() && date[1].isEmpty();
@@ -159,7 +165,7 @@ namespace Main
         public String patronymic = "";//о
         public Pair[,] pairs = new Pair[5, 5];
         public bool isError = false;
-      
+
 
     }
 
