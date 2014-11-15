@@ -57,11 +57,11 @@ namespace Main
                                 {
 
                                     file.WriteLine("        " + dayOfWeek[k1] + "; "+ (k2 + 1) + " пара " );
-                                    file.WriteLine("        входная строка: " + Data.FilesData[i].Teachers[j].pairs[k1, k2].originSring);
+                                    file.WriteLine("        входная строка: " + Data.FilesData[i].Teachers[j].pairs[k1, k2].ToString());
                                     dayToFile(Data.FilesData[i].Teachers[j].pairs[k1, k2], file);
                                 }
                                     if( Data.FilesData[i].Teachers[j].pairs[k1, k2].isErrors)
-                                        ErrorsLines.Add("" + Data.FilesData[i].Teachers[j].pairs[k1, k2].originSring);     
+                                        ErrorsLines.Add("" + Data.FilesData[i].Teachers[j].pairs[k1, k2].ToString());     
                             }
                     file.WriteLine("-----------------------");
                     }

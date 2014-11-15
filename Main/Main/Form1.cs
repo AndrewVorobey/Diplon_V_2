@@ -125,7 +125,7 @@ namespace Main
             for (int k = 0; k < 5; k++)
                 for (int j = 0; j < 5; j++)
                 {
-                    dataGridView.Rows[j].Cells[k].Value = "<" + toTable.pairs[k,j].date[0].Burden().ToString() + ">  " + toTable.pairs[k, j].originSring;
+                    dataGridView.Rows[j].Cells[k].Value = "<" + toTable.pairs[k, j].date[0].Burden().ToString() + ">  " + toTable.pairs[k, j].ToString();
                     if (toTable.pairs[k, j].isErrors == true)
                         dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.Red;
                     else

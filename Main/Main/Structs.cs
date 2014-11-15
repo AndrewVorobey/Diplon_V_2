@@ -13,14 +13,31 @@ namespace Main
     public class UnderPair
     {
         private string _subject;
-        public string group;
+        private string _group;
         public string room;
 
         public string subject
         {
             get { return _subject; }
-            set { _subject = SubjectCollection.findEquals(value); }
+            set{ _subject = SubjectCollection.findEquals(value);}
         }
+
+        public string group
+        {
+            get { return _group; }
+            set
+            {
+                _group = value.Replace("  ", String.Empty).ToUpper();
+                if (_group != "")
+                {
+                    int i = 0;
+                    while (_group[i] <= 'Я' && _group[i] >= 'А') i++;
+                    if (_group[i] != '-')
+                        _group = _group.Insert(i, "-");
+                }
+            }
+        }
+
         public pointSem Burden()
         {
             if (group == "" || subject == "")

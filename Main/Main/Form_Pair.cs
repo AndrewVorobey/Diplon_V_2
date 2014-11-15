@@ -27,7 +27,7 @@ namespace Main
             int stage = 0;
             date = toTable;
             if (form.textBox1.Text.Length == 0)
-                form.textBox1.Text = date.originSring;
+                form.textBox1.Text = date.ToString();
             form.checkBox2.Checked = date.isSame;
 
             form.TGroap.Text = date.date[stage].group;
