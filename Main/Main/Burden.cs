@@ -20,6 +20,10 @@ namespace Main
         public int sem_hours;
         public int lec_hours;
         public float hours_N;
+        public bool isNull
+        {
+            get { return sem_hours == 0 && lec_hours == 0 && hours_N == 0; }
+        }
         //bool isOnceGroup;
         public String ToString()
         {

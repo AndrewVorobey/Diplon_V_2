@@ -129,7 +129,13 @@ namespace Main
                     if (toTable.pairs[k, j].isErrors == true)
                         dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.Red;
                     else
-                        dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.White;
+                        if (toTable.pairs[k, j].date[0].Burden().isNull && toTable.pairs[k, j].ToString() != "")
+                            dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.Orange;
+                        else
+                            if (toTable.pairs[k, j].ToString() != "")
+                                dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.Green;
+                            else 
+                            dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.White;
                 }
         }
         private void setTeacherComboBox()

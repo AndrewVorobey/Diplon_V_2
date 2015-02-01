@@ -12,3 +12,4 @@ D:\Diplon_V_2\Main\Main\obj\Release\Main.Properties.Resources.resources
 D:\Diplon_V_2\Main\Main\obj\Release\Main.csproj.GenerateResource.Cache
 D:\Diplon_V_2\Main\Main\obj\Release\Main.exe
 D:\Diplon_V_2\Main\Main\obj\Release\Main.pdb
+D:\Diplon_V_2\Main\Main\obj\Release\Main.csprojResolveAssemblyReference.cache
