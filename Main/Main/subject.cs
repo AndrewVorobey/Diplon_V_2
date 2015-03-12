@@ -24,7 +24,7 @@ namespace Main
             }
         }
         public static Dictionary<string, string> subjects = new Dictionary<string, string>();
-        public static void loadFromFile(String fileName = "subjects.txt")
+        public static void loadFromFile(String fileName = "../../subjects.txt")
         {
             try
             {
