@@ -10,30 +10,28 @@ namespace Main
 {
     public class pointSem
     {
+        private String val;
+        public pointSem add(string str)
+        {
+            val += str + "\n";
+            return this;
+        }
+
         public pointSem()
         {
-            sem_hours = new int();
-            lec_hours = new int();
-            hours_N = new float();
-           // isOnceGroup = new bool();
+            val = "";
         }
-        public int sem_hours;
-        public int lec_hours;
-        public float hours_N;
-        public bool isNull
+
+        public string ToString() 
         {
-            get { return sem_hours == 0 && lec_hours == 0 && hours_N == 0; }
-        }
-        //bool isOnceGroup;
-        public String ToString()
-        {
-            pointSem p = this;
-            return p.lec_hours + "+" + p.sem_hours + "+" + p.hours_N + "*N";
+            return val;
         }
     }
+
     class BurdenData
     {
         public static Dictionary<String, pointSem> Hours = new Dictionary<string, pointSem>();
+
         /*pattern format: subject|group|year*/
         public static string ToString(String pattern)
         {
@@ -68,12 +66,12 @@ namespace Main
             Hours.Clear();
         }
 
-        public static void setLectionHours(String pattern, int hours)
+        public static void setLectionHours(String pattern, string head, int hours)
         {
-            getHours(pattern).lec_hours += hours;//пробежать по всем группам
+            getHours(pattern).add(head + hours);//пробежать по всем группам
         }
 
-        public static void setSeminarHours(String pattern, float hours, bool N = false)
+        public static void setSeminarHours(String pattern, string head, float hours, bool N = false)
         {
             pattern = formatePattern(pattern);
             string[] strs0 = pattern.Split('|');
@@ -81,9 +79,9 @@ namespace Main
             string[] strs2 = strs1[1].Split(',');
             foreach (var i in strs2)
                 if(N)
-                    getHours(strs0[0] + "|" + strs1[0] + "-" + i + "|" + strs0[2]).hours_N += hours;
+                    getHours(strs0[0] + "|" + strs1[0] + "-" + i + "|" + strs0[2]).add(head + hours);
                 else
-                    getHours(strs0[0] + "|" + strs1[0] + "-" + i + "|" + strs0[2]).sem_hours += (int)hours;
+                    getHours(strs0[0] + "|" + strs1[0] + "-" + i + "|" + strs0[2]).add(head + hours + " *N");
         }
 
         private static String formatePattern(String pattern)
@@ -224,18 +222,18 @@ namespace Main
 
                     if (regexLections.Match(str1).Value != "")
                     {
-                        setLectionHours(SubjectCollection.findEquals(CurrentSubject) + "|" + CurrentGroup + "|" + kurs, Int16.Parse(regexInt.Match(str2).Value));
+                        setLectionHours(SubjectCollection.findEquals(CurrentSubject) + "|" + CurrentGroup + "|" + kurs, str1, Int16.Parse(regexInt.Match(str2).Value));
                         continue;
                     }
 
                     if (regexSeminars.Match(str1).Value != "")
                     {
-                        setSeminarHours(SubjectCollection.findEquals(CurrentSubject) + "|" + CurrentGroup + "|" + kurs, Int16.Parse(regexInt.Match(str2).Value));
+                        setSeminarHours(SubjectCollection.findEquals(CurrentSubject) + "|" + CurrentGroup + "|" + kurs, str1, Int16.Parse(regexInt.Match(str2).Value));
                         continue;
                     }
                     if (regexSeminarsN.Match(str1).Value != "")
                     {
-                        setSeminarHours(SubjectCollection.findEquals(CurrentSubject) + "|" + CurrentGroup + "|" + kurs, Int16.Parse(regexInt.Match(str2).Value),true);
+                        setSeminarHours(SubjectCollection.findEquals(CurrentSubject) + "|" + CurrentGroup + "|" + kurs, str1, Int16.Parse(regexInt.Match(str2).Value),true);
                         continue;
                     }
                     //Form1.form.Invoke(Form1.form.progress_bar_del, j / t.Rows.Count, "Читаем таблицу, курс: " + kurs, showStatus);

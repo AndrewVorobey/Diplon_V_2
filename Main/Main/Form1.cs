@@ -14,6 +14,7 @@ namespace Main
     public partial class Form_Main : Form
     {
         public static Form_Main form;
+        TeacherPirs toTable;
 
         public delegate void simple_delegate();
         public delegate void string_simple_delegate(string s);
@@ -120,16 +121,16 @@ namespace Main
         {
             if (FileNameCombo.Items.Count == 0)
                 return;
-            TeacherPirs toTable = Data.FilesData[FileNameCombo.SelectedIndex].Teachers[TeacherNameCombo.SelectedIndex];
+            toTable = Data.FilesData[FileNameCombo.SelectedIndex].Teachers[TeacherNameCombo.SelectedIndex];
 
             for (int k = 0; k < 5; k++)
                 for (int j = 0; j < 5; j++)
                 {
-                    dataGridView.Rows[j].Cells[k].Value = "<" + toTable.pairs[k, j].date[0].Burden().ToString() + ">  " + toTable.pairs[k, j].ToString();
+                    dataGridView.Rows[j].Cells[k].Value = toTable.pairs[k, j].ToString();
                     if (toTable.pairs[k, j].isErrors == true)
                         dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.Red;
                     else
-                        if (toTable.pairs[k, j].date[0].Burden().isNull && toTable.pairs[k, j].ToString() != "")
+                        if (toTable.pairs[k, j].date[0].Burden().ToString() == "" && toTable.pairs[k, j].ToString() != "")
                             dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.Orange;
                         else
                             if (toTable.pairs[k, j].ToString() != "")
@@ -271,6 +272,13 @@ namespace Main
                 ShowHide.Text = "▲";
                 this.Height = maxHeight;
             }
+        }
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int i = dataGridView.SelectedCells[0].RowIndex;
+            int j = dataGridView.SelectedCells[0].ColumnIndex;
+            richTextBox1.Text = toTable.pairs[i, j].date[0].Burden().ToString();
         }
 
     }
