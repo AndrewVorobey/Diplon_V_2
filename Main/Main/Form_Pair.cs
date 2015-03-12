@@ -19,6 +19,11 @@ namespace Main
             InitializeComponent();
             form = this;
             form.groupBox3.Enabled = false;
+            foreach(var i in SubjectCollection.subjects.Keys)
+            {
+                TSubject.Items.Add(i);
+                TSubject2.Items.Add(i);
+            }
         }
 
 
