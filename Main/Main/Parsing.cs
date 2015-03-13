@@ -8,7 +8,7 @@ namespace Main
     public class BasePatterns
     {
         private static string facultets = @"[A|А|Т|Э|С|C][Ф|Л|Р]?";
-        private static string houses = @"[A|А|Б|В|B|Г|Д|Ж|М|M|Н|С|Cа-я]";
+        private static string houses = @"[A-Za-zА-Яа-я]";
 
 
         public static Regex r_group;
@@ -34,7 +34,7 @@ namespace Main
             s_lectionGroups = @"(" + facultets + @"[\s-]{1,3}" + @"\d{1,2}[,-]?\d{0,2}[,-]?\d{0,2}[,-]?\d{0,2}[,-]?\d{0,2}[,-]?\d{0,2}" + @"[\s-]{1,3}[012][0-9]" + @")";
             r_lectionGroups = new Regex(s_lectionGroups);
 
-            s_subject = @"(" + @"[A-Za-zА-Яа-я\\.]{2,15}[1-2]?" + @")";
+            s_subject = @"(" + @"[A-Za-zА-Яа-я\\.]{1,15}" + @"\s?" + @"[A-Za-zА-Яа-я\\.]{1,15}" + @"[1-2]?" + @")";
             r_subject = new Regex(s_subject);
 
         }
@@ -48,7 +48,7 @@ namespace Main
         public static Regex GSRR;
         public static Regex GRGR;
         public static Regex GS;
-        
+
         static TipesPatterns()
         {
             string _GSR = @"(\d)?\s*" + BasePatterns.r_lectionGroups + @"\s*" + BasePatterns.s_subject + @"\s*" + BasePatterns.s_room;
@@ -87,7 +87,7 @@ namespace Main
             data = data.Replace("–", "-");
             return data;
         }
-        
+
         public void setNulls()
         {
             this.date[0].group = this.date[1].group = "";
@@ -160,7 +160,7 @@ namespace Main
             {
                 MatchCollection matches = TipesPatterns.GSRR.Matches(data, 0);
                 this.isSame = false;
-                int i=1;
+                int i = 1;
                 this.date[0].group = matches[0].Groups[i].Value.Replace(" ", string.Empty);
                 this.date[1].group = matches[0].Groups[i++].Value.Replace(" ", string.Empty);
                 this.date[0].subject = matches[0].Groups[i].Value;
@@ -178,12 +178,12 @@ namespace Main
             {
                 MatchCollection matches = TipesPatterns.GRR.Matches(data, 0);
                 this.isSame = false;
-                int i=1;
+                int i = 1;
                 this.date[0].group = matches[0].Groups[i++].Value.Replace(" ", string.Empty);
                 i++;
                 this.date[0].room = matches[0].Groups[i++].Value.Replace(" ", string.Empty);
-                this.date[1].group = this.date[0].group; 
-                i++; 
+                this.date[1].group = this.date[0].group;
+                i++;
                 this.date[1].room = matches[0].Groups[i++].Value.Replace(" ", string.Empty);
                 return;
             }
