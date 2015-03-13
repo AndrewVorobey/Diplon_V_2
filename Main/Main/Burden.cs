@@ -22,7 +22,7 @@ namespace Main
             val = "";
         }
 
-        public string ToString() 
+        public override string ToString()
         {
             return val;
         }
@@ -78,7 +78,7 @@ namespace Main
             string[] strs1 = strs0[1].Split('-');
             string[] strs2 = strs1[1].Split(',');
             foreach (var i in strs2)
-                if(N)
+                if (N)
                     getHours(strs0[0] + "|" + strs1[0] + "-" + i + "|" + strs0[2]).add(head + hours);
                 else
                     getHours(strs0[0] + "|" + strs1[0] + "-" + i + "|" + strs0[2]).add(head + hours + " *N");
@@ -201,7 +201,7 @@ namespace Main
                 Word.Table t = doc.Tables[1];
                 for (int j = 1; j <= t.Rows.Count; j++)
                 {
-            
+
                     string str1 = t.Cell(j, 1).Range.Text;
                     string str2 = t.Cell(j, 2).Range.Text;
 
@@ -219,21 +219,24 @@ namespace Main
                         continue;
                     }
 
+                    string subjectForSubject = SubjectCollection.findEquals(CurrentSubject);
+                    if (subjectForSubject == "(err)")
+                        subjectForSubject = CurrentSubject;//зачем я сохраняю те, что не сможем сапоставить? может, пригодится...
 
                     if (regexLections.Match(str1).Value != "")
                     {
-                        setLectionHours(SubjectCollection.findEquals(CurrentSubject) + "|" + CurrentGroup + "|" + kurs, str1, Int16.Parse(regexInt.Match(str2).Value));
+                        setLectionHours(subjectForSubject + "|" + CurrentGroup + "|" + kurs, str1, Int16.Parse(regexInt.Match(str2).Value));
                         continue;
                     }
 
                     if (regexSeminars.Match(str1).Value != "")
                     {
-                        setSeminarHours(SubjectCollection.findEquals(CurrentSubject) + "|" + CurrentGroup + "|" + kurs, str1, Int16.Parse(regexInt.Match(str2).Value));
+                        setSeminarHours(subjectForSubject + "|" + CurrentGroup + "|" + kurs, str1, Int16.Parse(regexInt.Match(str2).Value));
                         continue;
                     }
                     if (regexSeminarsN.Match(str1).Value != "")
                     {
-                        setSeminarHours(SubjectCollection.findEquals(CurrentSubject) + "|" + CurrentGroup + "|" + kurs, str1, Int16.Parse(regexInt.Match(str2).Value),true);
+                        setSeminarHours(subjectForSubject + "|" + CurrentGroup + "|" + kurs, str1, Int16.Parse(regexInt.Match(str2).Value), true);
                         continue;
                     }
                     //Form1.form.Invoke(Form1.form.progress_bar_del, j / t.Rows.Count, "Читаем таблицу, курс: " + kurs, showStatus);
