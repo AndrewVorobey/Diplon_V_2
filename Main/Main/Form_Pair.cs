@@ -19,7 +19,7 @@ namespace Main
             InitializeComponent();
             form = this;
             form.groupBox3.Enabled = false;
-            foreach(var i in SubjectCollection.subjects.Keys)
+            foreach (var i in SubjectCollection.subjects.Keys)
             {
                 TSubject.Items.Add(i);
                 TSubject2.Items.Add(i);
@@ -31,8 +31,9 @@ namespace Main
         {
             int stage = 0;
             date = toTable;
-            if (form.textBox1.Text.Length == 0)
-                form.textBox1.Text = date.ToString();
+            if (form.textBox1.Text == "")
+            form.textBox1.Text = date.ToString();
+
             form.checkBox2.Checked = date.isSame;
 
             form.TGroap.Text = date.date[stage].group;
@@ -43,27 +44,17 @@ namespace Main
             form.TGroap2.Text = date.date[stage].group;
             form.TSubject2.Text = date.date[stage].subject;
             form.TRoom2.Text = date.date[stage].room;
+
         }
 
-        static bool changing = false;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (!changing)
-            {
-                changing = true;
-                if (textBox1.Enabled)
-                {//TODO запретить изменяь строку. Только парсить или сохранять её местоположение. 
-                    String S = textBox1.Text;
-                    int pos = textBox1.SelectionStart;
-                    date.parsing(textBox1.Text);
-                    setPair(date);
-                    date.isErrors = false;
-                    date.originSring = textBox1.Text;
-                    textBox1.Text = S;
-                    textBox1.SelectionStart = pos;
-                }
-                changing = false;
-            }
+            if (checkBox1.Checked)
+                return;
+
+            date.parsing(textBox1.Text);
+            setPair(date);
+            date.originSring = textBox1.Text;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -77,6 +68,8 @@ namespace Main
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
+            if (!checkBox1.Checked)
+                return;
             this.groupBox2.Enabled = !this.checkBox2.Checked;
             date.isSame = !this.groupBox2.Enabled;
             textBox1.Text = date.ToString();
@@ -84,36 +77,48 @@ namespace Main
 
         private void TGroap_TextChanged(object sender, EventArgs e)
         {
+            if (!checkBox1.Checked)
+                return;
             date.date[0].group = TGroap.Text;
             textBox1.Text = date.ToString();
         }
 
         private void TGroap2_TextChanged(object sender, EventArgs e)
         {
+            if (!checkBox1.Checked)
+                return;
             date.date[1].group = TGroap2.Text;
             textBox1.Text = date.ToString();
         }
 
         private void TSubject_TextChanged(object sender, EventArgs e)
         {
+            if (!checkBox1.Checked)
+                return;
             date.date[0].subject = TSubject.Text;
             textBox1.Text = date.ToString();
         }
 
         private void TSubject2_TextChanged(object sender, EventArgs e)
         {
+            if (!checkBox1.Checked)
+                return;
             date.date[1].subject = TSubject2.Text;
             textBox1.Text = date.ToString();
         }
 
         private void TRoom_TextChanged(object sender, EventArgs e)
         {
+            if (!checkBox1.Checked)
+                return;
             date.date[0].room = TRoom.Text;
             textBox1.Text = date.ToString();
         }
 
         private void TRoom2_TextChanged(object sender, EventArgs e)
         {
+            if (!checkBox1.Checked)
+                return;
             date.date[1].room = TRoom2.Text;
             textBox1.Text = date.ToString();
         }

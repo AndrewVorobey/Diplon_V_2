@@ -75,8 +75,7 @@ namespace Main
 
     public partial class Pair
     {
-
-        public void parsing(string data)
+        private string cutBads(string data)
         {
             //удаляем лишние символы
             data = data.Replace("*", " ");
@@ -86,6 +85,21 @@ namespace Main
             data = data.Replace("  ", " ");
             data = data.Replace("  ", " ");
             data = data.Replace("–", "-");
+            return data;
+        }
+        
+        public void setNulls()
+        {
+            this.date[0].group = this.date[1].group = "";
+            this.date[0].subject = this.date[1].subject = "";
+            this.date[0].room = this.date[1].room = "";
+
+        }
+
+        public void parsing(string data)
+        {
+            setNulls();
+            data = cutBads(data);
             //запоминаем строку
             originSring = data;
             isErrors = false;

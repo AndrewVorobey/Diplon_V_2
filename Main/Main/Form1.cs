@@ -130,7 +130,7 @@ namespace Main
                     if (toTable.pairs[k, j].isErrors == true)
                         dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.Red;
                     else
-                        if (toTable.pairs[k, j].date[0].Burden().ToString() == "" && toTable.pairs[k, j].ToString() != "")
+                        if (toTable.pairs[k, j].date[0].Burden().ToString() == "" && toTable.pairs[k, j].date[1].Burden().ToString() == "" && toTable.pairs[k, j].ToString() != "")
                             dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.Orange;
                         else
                             if (toTable.pairs[k, j].ToString() != "")
@@ -276,9 +276,19 @@ namespace Main
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int i = dataGridView.SelectedCells[0].RowIndex;
-            int j = dataGridView.SelectedCells[0].ColumnIndex;
-            richTextBox1.Text = toTable.pairs[i, j].date[0].Burden().ToString();
+            int i = dataGridView.SelectedCells[0].ColumnIndex;
+            int j = dataGridView.SelectedCells[0].RowIndex;
+            Pair pair = toTable.pairs[i, j];
+            richTextBox1.Text = "";
+            if(pair.isSame){
+            richTextBox1.Text = pair.date[0].Burden().ToString();
+            } else
+            {
+                if (pair.date[0].Burden().ToString() != "")
+                    richTextBox1.Text += "1:" + pair.date[0].Burden().ToString();
+                if (pair.date[1].Burden().ToString() != "")
+                    richTextBox1.Text += "2:" + pair.date[1].Burden().ToString();
+            }
         }
 
     }
