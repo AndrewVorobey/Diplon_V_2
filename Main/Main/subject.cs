@@ -8,14 +8,16 @@ namespace Main
 {
     class SubjectCollection
     {
+        public static Dictionary<string, string> subjects = new Dictionary<string, string>();
         static Logger logger = new Logger("SubjectsErrors.txt");
+
         public static String findEquals(String input)
         {
             if(input == "")
                 return input;
             try
             {
-                return subjects[input];
+                return subjects[input.ToUpper()];
             }
             catch
             {
@@ -23,9 +25,10 @@ namespace Main
                 return "(err)";
             }
         }
-        public static Dictionary<string, string> subjects = new Dictionary<string, string>();
+
         public static void loadFromFile(String fileName = "../../subjects.txt")
         {
+            subjects.Clear();
             try
             {
                 using (System.IO.StreamReader file = new System.IO.StreamReader(fileName, Encoding.Default))
@@ -45,7 +48,7 @@ namespace Main
                                 splitedStrs = str.Split('|');
                                 foreach (var i in splitedStrs)
                                     if (i != "&")
-                                        subjects.Add(i, splitedStrs[1]);
+                                        subjects.Add(i.ToUpper(), splitedStrs[1]);
                             }
                         }
                         catch
