@@ -3,4 +3,5 @@
 *.exe
 *.cache
 *.exe
-*.exe
+*debag*
+*release*
