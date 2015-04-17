@@ -71,7 +71,8 @@ namespace Main
 
                     res.Teachers.Add(buf);
                 }
-            }/*
+            }
+
             if (res.Teachers.Count > 0)
             {
                 //считывания имен
@@ -95,7 +96,7 @@ namespace Main
                         res.Teachers.RemoveAt(i); i--;
                     }
 
-            }*/
+            }
             Object saveChanges = Word.WdSaveOptions.wdSaveChanges;
             Object originalFormat = Type.Missing;
             Object routeDocument = Type.Missing;
@@ -311,6 +312,95 @@ namespace Main
 
         }
 
+        public static void CreateBurden(string name, string[] rows)
+        {
 
+
+            #region inicialization
+
+            Form_Main.form.Invoke(Form_Main.form.progress_bar_del, 0, "Инициализация структур", true);
+            const int pairLen = 4;//Сколько пар в день отображать
+            string[] daysNames = { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница" };
+            string[] times = { "9.30-10.30", "11.10–12.45", "13.45–15.20", "15.35–17.10", "17.25–19.00??" };
+            object nr = 1;
+            object nc = pairLen;
+            object start = 0;
+            object end = 0;
+            const int dayWidth = 120;//ширина одного дня
+            const int namesWidth = 95;//ширина имен.
+
+            Word.Application app = new Word.Application(); //Word.ApplicationClass();
+            Word.Document doc = new Word.Document();//Word.DocumentClass();
+            Object template = Type.Missing;
+            Object newTemplate = Type.Missing;
+            Object documentType = Type.Missing;
+            Object visible = Type.Missing;
+            app.Documents.Add(ref template, ref newTemplate, ref documentType, ref visible);
+            Object DefaultTableBehavior = Type.Missing;
+            Object AutoFitBehavior = Type.Missing;
+            //Формирование страницы
+            doc.PageSetup.Orientation = Word.WdOrientation.wdOrientLandscape;
+            //Создание таблицы
+            Word.Range cellRange;
+            Word.Range tableLocation = doc.Range(ref start, ref end);
+            doc.Tables.Add(tableLocation, rows.Length, 3, ref DefaultTableBehavior, ref AutoFitBehavior);
+            Word.Table table = doc.Tables[1];
+            table.Borders.Enable = 1;
+            table.Rows.SetHeight(12f, Microsoft.Office.Interop.Word.WdRowHeightRule.wdRowHeightExactly);
+
+            //Формирование Шрифтов 
+            Word.Font TextFont = new Word.Font();
+            TextFont.Size = 8;
+            TextFont.Bold = 0;
+           // table.Cell(1, 1).Width = namesWidth;
+           // cellRange = table.Cell(1, 1).Range;
+            //cellRange.Font = TextFont;
+            #endregion
+
+            for (int i = 1; i < rows.Length; i++)
+            {
+                string[] splited = rows[i].Split('|');
+                table.Cell(i, 1).Range.Text = " " + splited[0];
+                table.Cell(i, 2).Range.Text = splited[1];
+             //   table.Cell(i, 3).Range.Text = splited[2];
+                if(splited[1] == "")
+                {
+                    table.Cell(i, 1).Range.Font.Bold = 2;
+                }
+            }
+
+
+            #region save
+            Object fileName = name;
+            Object fileFormat = Type.Missing;
+            Object lockComments = Type.Missing;
+            Object password = Type.Missing;
+            Object addToRecentFiles = Type.Missing;
+            Object writePassword = Type.Missing;
+            Object readOnlyRecommended = Type.Missing;
+            Object embedTrueTypeFonts = Type.Missing;
+            Object saveNativePictureFormat = Type.Missing;
+            Object saveFormsData = Type.Missing;
+            Object saveAsAOCELetter = Type.Missing;
+            Object encoding = Type.Missing;
+            Object insertLineBreaks = Type.Missing;
+            Object allowSubstitutions = Type.Missing;
+            Object lineEnding = Type.Missing;
+            Object addBiDiMarks = Type.Missing;
+
+            doc.SaveAs(ref fileName, ref fileFormat, ref lockComments,
+                ref password, ref addToRecentFiles, ref writePassword,
+                ref readOnlyRecommended, ref embedTrueTypeFonts,
+                ref saveNativePictureFormat, ref saveFormsData,
+                ref saveAsAOCELetter, ref encoding, ref insertLineBreaks,
+                ref allowSubstitutions, ref lineEnding, ref addBiDiMarks);
+
+
+            Object saveChanges = Word.WdSaveOptions.wdSaveChanges;
+            Object originalFormat = Type.Missing;
+            Object routeDocument = Type.Missing;
+            app.Quit(ref saveChanges, ref originalFormat, ref routeDocument);
+            #endregion
+        }
     }
 }

@@ -107,8 +107,8 @@ namespace Main
                 StatusGroup.Text = "Чтение из Doc";
                 StatusGroup.Show();
                 menu.Enabled = false;
-                Thread ThreadwriteDoc = new Thread(read_doc);
-                ThreadwriteDoc.Start();
+                Thread ThreadReadDoc = new Thread(read_doc);
+                ThreadReadDoc.Start();
             }
         }
 
@@ -135,8 +135,8 @@ namespace Main
                         else
                             if (toTable.pairs[k, j].ToString() != "")
                                 dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.Green;
-                            else 
-                            dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.White;
+                            else
+                                dataGridView.Rows[j].Cells[k].Style.BackColor = System.Drawing.Color.White;
                 }
         }
         private void setTeacherComboBox()
@@ -166,7 +166,8 @@ namespace Main
                 StatusGroup.Text = "Запись в Doc";
                 StatusGroup.Show();
                 menu.Enabled = false;
-                Thread ThreadwriteDoc = new Thread(() => write_doc(FileNameCombo.SelectedIndex));
+                int selectedIndex = FileNameCombo.SelectedIndex;
+                Thread ThreadwriteDoc = new Thread(() => write_doc(selectedIndex));
                 ThreadwriteDoc.Start();
             }
         }
@@ -235,10 +236,10 @@ namespace Main
 
         private void отчетToolStripMenuItem_Click(object sender, EventArgs e)
         {
-             if (saveFileDialog_Reports.ShowDialog() == DialogResult.OK)
-             {
+            if (saveFileDialog_Reports.ShowDialog() == DialogResult.OK)
+            {
                 Reports.createSimpleTxtReport(saveFileDialog_Reports.FileName);
-             }
+            }
         }
 
         private void считатьToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -248,9 +249,10 @@ namespace Main
                 this.Enabled = false;
                 BurdenData.inicializationFromWord(openFileDialog1.FileName);
                 this.Enabled = true;
-                foreach(var i in BurdenData.Hours){
+                foreach (var i in BurdenData.Hours)
+                {
                     string str = i.Key + ":" + i.Value.ToString();
-                 //   listView1.Items.Add(str);
+                    //   listView1.Items.Add(str);
                 }
             }
         }
@@ -280,15 +282,59 @@ namespace Main
             int j = dataGridView.SelectedCells[0].RowIndex;
             Pair pair = toTable.pairs[i, j];
             richTextBox1.Text = "";
-            if(pair.isSame){
-            richTextBox1.Text = pair.date[0].Burden().ToString();
-            } else
+            if (pair.isSame)
+            {
+                richTextBox1.Text = pair.date[0].Burden().ToString();
+            }
+            else
             {
                 if (pair.date[0].Burden().ToString() != "")
                     richTextBox1.Text += "1:" + pair.date[0].Burden().ToString();
                 if (pair.date[1].Burden().ToString() != "")
                     richTextBox1.Text += "2:" + pair.date[1].Burden().ToString();
             }
+        }
+
+        private string[] getBurden(Pair pair)
+        {
+            string Text = "";
+            if (pair.isSame)
+            {
+                Text = pair.date[0].Burden().ToString();
+            }
+            else
+            {
+                if (pair.date[0].Burden().ToString() != "")
+                    Text += "1:" + pair.date[0].Burden().ToString();
+                if (pair.date[1].Burden().ToString() != "")
+                    Text += "2:" + pair.date[1].Burden().ToString();
+            }
+            return Text.Split('\n');
+        }
+
+        private void создатьФайлСНагрузкойToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<string> rows = new List<string>();
+            foreach (TeacherPirs i in Data.FilesData[FileNameCombo.SelectedIndex].Teachers)
+            {
+                rows.Add("||");//empty row
+                rows.Add(i.name + "||");
+                foreach (Pair j in i.pairs)
+                {
+                    if (j.originSring != null && j.originSring.Length > 5)
+                        rows.Add(j.ToString() + "||");
+
+                    string[] burdens = getBurden(j);
+                    foreach (string s in burdens)
+                    {
+                        string[] splited = s.Split('\a');
+                        if (splited.Length == 2)
+                            rows.Add(splited[0] + "|" + splited[1] + "|");
+                    }
+                }
+            }
+
+            OLE.CreateBurden("1.doc", rows.ToArray());
         }
 
     }

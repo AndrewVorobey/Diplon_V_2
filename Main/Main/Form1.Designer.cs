@@ -66,6 +66,7 @@
             this.saveFileDialog_Reports = new System.Windows.Forms.SaveFileDialog();
             this.ShowHide = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.создатьФайлСНагрузкойToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.StatusGroup.SuspendLayout();
@@ -104,9 +105,10 @@
             // 
             this.распознатьКарточкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.считатьИзКарточекToolStripMenuItem,
-            this.создатьСеместровоеРасписаниеПреподавателейToolStripMenuItem});
+            this.создатьСеместровоеРасписаниеПреподавателейToolStripMenuItem,
+            this.создатьФайлСНагрузкойToolStripMenuItem});
             this.распознатьКарточкиToolStripMenuItem.Name = "распознатьКарточкиToolStripMenuItem";
-            this.распознатьКарточкиToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.распознатьКарточкиToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.распознатьКарточкиToolStripMenuItem.Text = "Word";
             // 
             // считатьИзКарточекToolStripMenuItem
@@ -130,7 +132,7 @@
             this.записатьToolStripMenuItem,
             this.обновитьРасписаниеВсехПреподавателейToolStripMenuItem});
             this.mySQLToolStripMenuItem1.Name = "mySQLToolStripMenuItem1";
-            this.mySQLToolStripMenuItem1.Size = new System.Drawing.Size(112, 22);
+            this.mySQLToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.mySQLToolStripMenuItem1.Text = "MySQL";
             // 
             // считатьToolStripMenuItem
@@ -157,7 +159,7 @@
             // отчетToolStripMenuItem
             // 
             this.отчетToolStripMenuItem.Name = "отчетToolStripMenuItem";
-            this.отчетToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.отчетToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.отчетToolStripMenuItem.Text = "Отчет";
             this.отчетToolStripMenuItem.Click += new System.EventHandler(this.отчетToolStripMenuItem_Click);
             // 
@@ -374,6 +376,13 @@
             this.richTextBox1.TabIndex = 8;
             this.richTextBox1.Text = "";
             // 
+            // создатьФайлСНагрузкойToolStripMenuItem
+            // 
+            this.создатьФайлСНагрузкойToolStripMenuItem.Name = "создатьФайлСНагрузкойToolStripMenuItem";
+            this.создатьФайлСНагрузкойToolStripMenuItem.Size = new System.Drawing.Size(351, 22);
+            this.создатьФайлСНагрузкойToolStripMenuItem.Text = "Создать файл с нагрузкой";
+            this.создатьФайлСНагрузкойToolStripMenuItem.Click += new System.EventHandler(this.создатьФайлСНагрузкойToolStripMenuItem_Click);
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -439,6 +448,7 @@
         public System.Windows.Forms.ToolStripTextBox FirstKurs;
         private System.Windows.Forms.Button ShowHide;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.ToolStripMenuItem создатьФайлСНагрузкойToolStripMenuItem;
     }
 }
 
